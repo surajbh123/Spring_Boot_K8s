@@ -3,11 +3,11 @@ kind: Ingress
 metadata:
   name: dev-app
   namespace: dev-app
-  annotations:
+  # annotations:
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
     # nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-        rewrite ^/(.*)/$ /$1 permanent
+    # nginx.ingress.kubernetes.io/configuration-snippet: |
+    #     rewrite ^/(.*)/$ /$1 permanent
 spec:
   rules:
   - host: teqmonic.com
