@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-config-map
+  namespace: dev-app
+data:
+  DPC_SERVICE_URL: "http://dpc-order-service"
+  SERVER_PORT: "8080"
+  

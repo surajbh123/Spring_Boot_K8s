@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  labels:
+    app: order-deployment
+  namespace: dev-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-pod
+  template:
+    metadata:
+      labels:
+        app: order-pod
+    spec:
+      containers:
+        - name: order-service
+          image: order-service:1.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DPC_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-config-map  # Name of the ConfigMap
+                  key: DPC_SERVICE_URL # Key from ConfigMap
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: order-config-map  # Name of the ConfigMap
+                  key: SERVER_PORT 

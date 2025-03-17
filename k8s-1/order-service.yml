@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: product-api-pod
+  ports:
+    - name: app-port-mapping
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-api-deployment
+  labels:
+    app: product-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: product-api-pod
+  template:
+    metadata:
+      labels:
+        app: product-api-pod
+    spec:
+      containers:
+       - name: product-api
+         image: order-service:1.0
+         ports:
+           - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: product-api-pod
+  ports:
+    - name: app-port-mapping
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: instacart-api-ingress
+  #remove the rewrite target line.
+spec:
+  rules:
+  - host: teqmonic.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/orders"
+        backend:
+          service:
+            name: product-api-service
+            port:
+              number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: instacart-api-ingress
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   rules:
+#     - host: teqmonic.com
+#       http:
+#         paths:
+#           - pathType: ImplementationSpecific
+#             path: "/orders(/|$)(.*)"
+#             backend:
+#               service:
+#                 name: product-api-service
+#                 port:
+#                   number: 80

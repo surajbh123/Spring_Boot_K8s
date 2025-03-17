@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpc-order-pod
+  labels:
+    app: dpc-order-pod
+  namespace: dev-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dpc-order-pod
+  template:
+    metadata:
+      labels:
+        app: dpc-order-pod
+    spec:
+      containers:
+        - name: dpc-order-service
+          image: dpc-order-service:1.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVER_PORT
+              value: "8080"

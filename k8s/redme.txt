@@ -1,0 +1,22 @@
+kubectl apply -f .\ecommerce-namespace.yml
+kubectl delete all --all -n dev-order
+kubectl get svc -n dev-order
+kubectl port-forward service/order-service 8010:8010 -n dev-order
+kubectl get nodes
+kubectl lable node minikube type=order-process
+kubectl get nodes --show-label
+kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 80:80
+kubectl delete ingress instacart-api-ingress -n dev-app
+
+
+
+
+minikube image load order-service:1.0 
+minikube start --nodes 2 
+minikube addons enable ingress
+minikube stop
+minikube delete
+
+docker build -t order-service:1.0 .
+docker build -t dpc-order-service:1.0 .
+

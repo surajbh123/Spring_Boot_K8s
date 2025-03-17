@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: dev-app
+spec:
+  type: ClusterIP
+  selector:
+    app: order-pod
+  ports:
+    - name: app-port-mapping
+      protocol: TCP
+      port: 80
+      targetPort: 8080
