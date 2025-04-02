@@ -20,3 +20,64 @@ minikube delete
 docker build -t order-service:1.0 .
 docker build -t dpc-order-service:1.0 .
 
+# 1. Get cluster information
+kubectl cluster-info 
+
+# 2. List all nodes in the cluster
+kubectl get nodes 
+
+# 3. Get detailed information about a specific node
+kubectl describe node <node-name> 
+
+# 4. List all pods in the current namespace
+kubectl get pods 
+
+# 5. List all pods in all namespaces
+kubectl get pods --all-namespaces 
+
+# 6. Get detailed information about a specific pod
+kubectl describe pod <pod-name> 
+
+# 7. Get logs of a specific pod
+kubectl logs <pod-name> 
+
+# 8. Get logs of a specific container inside a pod
+kubectl logs <pod-name> -c <container-name> 
+
+# 9. Execute a command inside a running pod
+kubectl exec -it <pod-name> -- /bin/sh 
+
+# 10. Create a resource from a YAML file
+kubectl apply -f <file.yaml> 
+
+# 11. Delete a resource from a YAML file
+kubectl delete -f <file.yaml> 
+
+# 12. Scale a deployment to a specific number of replicas
+kubectl scale deployment <deployment-name> --replicas=<num> 
+
+# 13. Get details of a deployment
+kubectl get deployment <deployment-name> 
+
+# 14. Restart a deployment
+kubectl rollout restart deployment <deployment-name> 
+
+# 15. Rollback to a previous deployment version
+kubectl rollout undo deployment <deployment-name> 
+
+# 16. Port-forward a service to access it locally
+kubectl port-forward svc/<service-name> <local-port>:<service-port> 
+
+# 17. Get all services in the cluster
+kubectl get services 
+
+# 18. Get details of a specific service
+kubectl describe service <service-name> 
+
+# 19. Get events from the cluster
+kubectl get events 
+
+# 20. View the Kubernetes configuration context
+kubectl config view 
+
+
